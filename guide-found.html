@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>宁夏大学 - 招领发布指南</title>
+    <style>
+        /* 全局统一样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #4a90e2;
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
+        .header-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: white;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 1.5rem;
+            font-size: 0.95rem;
+            transition: opacity 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+
+        main {
+            width: 90%;
+            max-width: 1200px;
+            margin: 2rem auto;
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .page-title h1 {
+            color: #4a90e2;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-title p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* 指南特有样式 */
+        .guide-section {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 2rem;
+        }
+
+        .guide-section h2 {
+            color: #4a90e2;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #4a90e2;
+            padding-left: 1rem;
+        }
+
+        .guide-step {
+            margin-bottom: 2rem;
+        }
+
+        .guide-step h3 {
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .guide-step h3 .step-num {
+            background-color: #4a90e2;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+
+        .guide-step p {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            margin-bottom: 0.5rem;
+            padding-left: 32px;
+        }
+
+        .guide-tips {
+            background-color: #eef2f7;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+            color: #333;
+        }
+
+        .guide-tips h4 {
+            color: #4a90e2;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 1rem;
+        }
+
+        .btn:hover {
+            background-color: #3a80d2;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 5rem;
+        }
+
+        .footer-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-contact {
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: #ccc;
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+
+            .nav-links a {
+                margin-left: 0;
+            }
+
+            .guide-section {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 统一导航栏 -->
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <span>📚</span> 宁夏大学失物招领平台
+            </a>
+            <div class="nav-links">
+                <a href="index.html">返回首页</a>
+                <a href="guide-lost.html">失物发布指南</a>
+                <a href="contact.html">联系我们</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="page-title">
+            <h1>✅ 招领发布指南</h1>
+            <p>学习如何发布捡拾物品信息，帮助他人快速找回失物</p>
+        </div>
+
+        <!-- 指南内容 -->
+        <section class="guide-section">
+            <h2>发布前准备</h2>
+            <div class="guide-step">
+                <h3><span class="step-num">1</span> 整理捡拾物品细节</h3>
+                <p>记录物品的核心信息，包括：物品名称、准确捡拾地点、捡拾时间、物品核心特征（颜色、型号、独有标记等）、内含物品（如有，请勿随意翻阅隐私物品）。</p>
+                <p>示例：白色AirPods Pro耳机，2026-01-11 19:30捡拾于校园操场跑道，充电盒有轻微划痕，电量剩余30%。</p>
+            </div>
+
+            <div class="guide-step">
+                <h3><span class="step-num">2</span> 妥善保管捡拾物品</h3>
+                <p>捡拾物品后，请妥善保管，避免物品丢失、损坏或被他人冒领，贵重物品（手机、电脑、现金等）可联系平台工作人员代为保管。</p>
+            </div>
+
+            <h2>发布流程</h2>
+            <div class="guide-step">
+                <h3><span class="step-num">1</span> 进入对应物品专区</h3>
+                <p>返回首页，根据捡拾物品类型，进入对应的专区（如捡拾校园卡进入「校园卡专区」、捡拾耳机进入「电子设备专区」）。</p>
+            </div>
+
+            <div class="guide-step">
+                <h3><span class="step-num">2</span> 点击「发布招领物品」按钮</h3>
+                <p>在对应专区的顶部，点击蓝色「发布招领物品」按钮，打开信息提交表单。</p>
+            </div>
+
+            <div class="guide-step">
+                <h3><span class="step-num">3</span> 填写并提交表单</h3>
+                <p>按照表单要求，完整填写以下信息（带*为必填项）：</p>
+                <p>① 物品名称（准确填写，避免模糊表述）</p>
+                <p>② 捡拾地点（精确到具体位置，如「操场篮球场旁座椅」）</p>
+                <p>③ 捡拾时间（选择准确日期，如有具体时间可在描述中补充）</p>
+                <p>④ 物品描述（详细填写特征，越具体越容易匹配失主）</p>
+                <p>⑤ 联系方式（填写手机号/微信/QQ，仅用于对接，不公开展示）</p>
+                <p>填写完成后，点击「提交信息」按钮，完成表单提交。</p>
+            </div>
+
+            <div class="guide-step">
+                <h3><span class="step-num">4</span> 等待审核与上架，对接失主</h3>
+                <p>提交后，平台工作人员将在1-2个工作日内进行审核，审核通过后，你的招领信息将在对应专区上架展示。</p>
+                <p>如有失主联系你，请仔细核对物品细节，确认身份无误后，再进行物品交接，交接时可选择公共场合（如学生活动中心、图书馆大厅）。</p>
+            </div>
+
+            <div class="guide-step">
+                <h3><span class="step-num">5</span> 物品交接后下架信息</h3>
+                <p>物品成功交接给失主后，请及时联系平台工作人员下架招领信息，避免无效咨询。</p>
+            </div>
+
+            <h2>注意事项与小贴士</h2>
+            <div class="guide-tips">
+                <h4>📌 核心小贴士</h4>
+                <p>1. 捡拾贵重物品（现金、手机、电脑等），建议优先联系平台工作人员，代为保管并发布招领信息。</p>

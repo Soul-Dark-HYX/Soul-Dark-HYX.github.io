@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>宁夏大学 - 校园失物招领平台</title>
+    <style>
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Inter", "Microsoft YaHei", sans-serif;
+        }
+
+        body {
+            background-image: url("https://picsum.photos/1920/1080"); 
+            background-size: cover; /* 背景图片覆盖整个页面，不出现留白 */
+            background-attachment: fixed; /* 背景图片固定，滚动页面时不跟随移动 */
+            background-color: #1a1a2e; 
+            background-blend-mode: overlay; /* 背景图片与备用背景混合，降低亮度，避免遮挡内容 */
+            
+            color: #f5f5f5; /* 全局文字 */
+            line-height: 1.5;
+            
+            padding-left: 220px;
+            overflow-x: hidden;
+            transition: padding-left 0.3s ease;
+        }
+
+        /* 左侧悬浮折叠侧边栏 */
+        .sidebar {
+            width: 40px; 
+            --sidebar-expand-width: 220px; 
+            height: 100vh;
+            /* 夜晚风格背景 */
+            background: linear-gradient(180deg, #16213e 0%, #0f172a 100%);
+            border-right: 1px solid #2a3447; 
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            padding: 2rem 0;
+            overflow-y: auto;
+            transition: width 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            overflow: hidden;
+        }
+
+        .sidebar:hover {
+            width: var(--sidebar-expand-width);
+            padding: 2rem 1rem; /* 内边距同步缩小，适配窄侧边栏 */
+        }
+
+        /* 侧边栏Logo */
+        .sidebar-logo {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #00b4d8; 
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #2a3447; 
+            white-space: nowrap;
+        }
+
+        .sidebar-logo span {
+            font-size: 1.6rem;
+            flex-shrink: 0;
+            width: 36px;
+            text-align: center;
+        }
+
+        /* 侧边栏标题 */
+        .sidebar-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #64748b; 
+            margin-bottom: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            white-space: nowrap;
+        }
+
+        /* 侧边栏卡片 */
+        .sidebar-categories {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .sidebar-card {
+            background-color: #1e293b; /* 卡片背景 */
+            border-radius: 8px;
+            padding: 1rem 0.8rem;
+            text-decoration: none;
+            color: #e2e8f0; /* 卡片文字 */
+            transition: all 0.3s ease;
+            border: 1px solid #2a3447; /* 卡片边框 */
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            white-space: nowrap;
+        }
+
+        .sidebar-card:hover {
+            border-color: #00b4d8; 
+            background-color: #2a3447; 
+            color: #00b4d8; 
+            transform: translateX(3px);
+        }
+
+        .sidebar-icon {
+            font-size: 1.3rem;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .sidebar-card-content h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+        }
+
+        .sidebar-card-content p {
+            font-size: 0.75rem;
+            color: #94a3b8; /* 卡片简介文字 */
+            line-height: 1.3;
+        }
+
+        /* 顶部导航栏 */
+        header {
+            padding: 1.2rem 0;
+            border-bottom: 1px solid #2a3447; /* 深色分割线，贴合夜晚风格 */
+            background-color: rgba(15, 23, 42, 0.8); /* 半透明深色背景，兼顾美观与可读性 */
+            backdrop-filter: blur(10px); /* 毛玻璃效果，增强夜晚风格质感 */
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
+        .header-container {
+            width: 95%;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #e2e8f0; /* 导航文字 */
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #00b4d8; /* hover时文字变为亮蓝色，贴合夜晚风格 */
+        }
+
+        /* 主内容区（核心调整：宽度改为95%，减少右侧留白 + 半透明背景，提升可读性） */
+        main {
+            width: 95%; /* 从90%改为95%，更紧凑 */
+            max-width: 2000px; /* 扩大最大宽度，利用更多空间 */
+            margin: 0 auto;
+            padding: 4rem 0 6rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 核心引导区（夜晚风格适配 + 半透明背景，避免被背景图片遮挡） */
+        .hero-section {
+            text-align: center;
+            margin-bottom: 4rem; /* 调整间距，为搜索框腾出空间 */
+            padding: 2rem;
+            background-color: rgba(15, 23, 42, 0.6); /* 半透明深色背景，提升文字可读性 */
+            border-radius: 12px;
+            backdrop-filter: blur(10px); /* 毛玻璃效果，增强质感 */
+            border: 1px solid #2a3447;
+        }
+
+        .hero-section h1 {
+            font-size: 2.8rem; /* 略微缩小标题，更协调 */
+            font-weight: 800;
+            color: #ffffff; /* 标题文字：白色，突出显示 */
+            margin-bottom: 1.2rem;
+            line-height: 1.2;
+        }
+
+        .hero-section p {
+            font-size: 1.1rem;
+            color: #cbd5e1; /* 描述文字：浅灰蓝，保证可读性 */
+            max-width: 1400px; /* 扩大描述宽度，减少换行 */
+            margin: 0 auto;
+        }
+
+        /* 新增：全局搜索框样式（适配夜晚风格） */
+        .search-section {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto 6rem auto; /* 位于核心功能区下方，与后续模块分隔 */
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            position: relative;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 1.2rem 1.5rem;
+            background-color: rgba(30, 41, 59, 0.8);
+            border: 1px solid #2a3447;
+            border-radius: 12px;
+            color: #e2e8f0;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-input::placeholder {
+            color: #94a3b8; /* 占位符文字颜色，贴合夜晚风格 */
+        }
+
+        .search-input:focus {
+            border-color: #00b4d8; /* 聚焦时边框变亮蓝，增强交互反馈 */
+            box-shadow: 0 0 15px rgba(0, 180, 216, 0.2);
+            background-color: rgba(30, 41, 59, 0.9);
+        }
+
+        .search-btn {
+            padding: 1.2rem 2rem;
+            background-color: #00b4d8;
+            border: none;
+            border-radius: 12px;
+            color: #ffffff;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .search-btn:hover {
+            background-color: #0096c7;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 180, 216, 0.3);
+        }
+
+        /* 核心功能按钮（夜晚风格改造） */
+        .core-actions {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem; /* 减少按钮间距 */
+            margin-bottom: 6rem; /* 调整间距，与搜索框适配 */
+        }
+
+        .action-btn {
+            padding: 1.1rem 2.5rem; /* 缩小按钮尺寸 */
+            border-radius: 12px;
+            background-color: #00b4d8; /* 按钮主色：亮蓝色，贴合夜晚风格 */
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0, 180, 216, 0.3); /* 蓝色阴影，增强夜晚氛围感 */
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            border: 1px solid #00b4d8;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 180, 216, 0.4);
+            background-color: #0096c7; /* hover时按钮颜色加深，增强层次感 */
+            border-color: #0096c7;
+        }
+
+        .action-btn.secondary {
+            background-color: rgba(30, 41, 59, 0.8); /* 次要按钮：半透明深灰，贴合夜晚风格 */
+            color: #00b4d8;
+            border: 1px solid #2a3447;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .action-btn.secondary:hover {
+            background-color: rgba(42, 52, 71, 0.8);
+            border-color: #00b4d8;
+        }
+
+        /* 新增：公共模块样式（统一所有新增模块的基础风格） */
+        .common-section {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto 6rem auto; /* 模块之间分隔，底部间距6rem */
+            padding: 2.5rem;
+            background-color: rgba(15, 23, 42, 0.6);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            border: 1px solid #2a3447;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #2a3447;
+        }
+
+        .section-title icon {
+            font-size: 1.6rem;
+            color: #00b4d8;
+        }
+
+        /* 新增：最新失物公告模块 */
+        .lost-notice-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* 自适应网格布局 */
+            gap: 1.5rem;
+        }
+
+        .notice-card {
+            background-color: rgba(30, 41, 59, 0.8);
+            border-radius: 8px;
+            padding: 1.5rem;
+            border: 1px solid #2a3447;
+            transition: all 0.3s ease;
+            /* 用于搜索筛选的标识类，保留所有卡片初始状态 */
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        /* 新增：搜索隐藏卡片的样式 */
+        .notice-card.hidden {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            pointer-events: none;
+            grid-column: span 1; /* 确保隐藏后不影响网格布局 */
+            height: 0;
+            padding: 0;
+            margin: 0;
+            border: none;
+        }
+
+        .notice-card:hover {
+            border-color: #00b4d8;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .notice-card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #e2e8f0;
+            margin-bottom: 0.8rem;
+        }
+
+        .notice-card-info {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .notice-card-desc {
+            font-size: 0.85rem;
+            color: #cbd5e1;
+            margin-top: 1rem;
+            line-height: 1.4;
+        }
+
+        .notice-more {
+            display: inline-block;
+            margin-top: 2rem;
+            color: #00b4d8;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .notice-more:hover {
+            color: #0096c7;
+            text-decoration: underline;
+        }
+
+        /* 新增：最新招领公告模块（复用失物公告的卡片样式，仅标题不同） */
+        .found-notice-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* 新增：平台使用指南模块 */
+        .guide-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .guide-card {
+            text-align: center;
+            padding: 2rem 1.5rem;
+            background-color: rgba(30, 41, 59, 0.8);
+            border-radius: 8px;
+            border: 1px solid #2a3447;
+            transition: all 0.3s ease;
+        }
+
+        .guide-card:hover {
+            border-color: #00b4d8;
+            transform: translateY(-5px);
+        }
+
+        .guide-card-icon {
+            font-size: 2.5rem;
+            color: #00b4d8;
+            margin-bottom: 1.5rem;
+        }
+
+        .guide-card-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #e2e8f0;
+            margin-bottom: 1rem;
+        }
+
+        .guide-card-desc {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            line-height: 1.4;
+        }
+
+        /* 新增：平台数据统计模块 */
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .stats-card {
+            text-align: center;
+            padding: 2rem 1rem;
+            background-color: rgba(30, 41, 59, 0.8);
+            border-radius: 8px;
+            border: 1px solid #2a3447;
+            transition: all 0.3s ease;
+        }
+
+        .stats-card:hover {
+            border-color: #00b4d8;
+            transform: scale(1.05); /* 轻微放大，增强交互反馈 */
+        }
+
+        .stats-card-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #00b4d8;
+            margin-bottom: 1rem;
+        }
+
+        .stats-card-title {
+            font-size: 1rem;
+            color: #e2e8f0;
+            font-weight: 500;
+        }
+
+        /* 页脚（夜晚风格适配） */
+        footer {
+            background-color: rgba(15, 23, 42, 0.9); /* 半透明深色背景，贴合夜晚风格 */
+            border-top: 1px solid #2a3447; /* 深色分割线，贴合夜晚风格 */
+            padding: 3rem 0;
+            margin-left: 0px; /* 与侧边栏展开宽度一致 */
+            transition: margin-left 0.3s ease;
+        }
+
+        .footer-container {
+            width: 95%;
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #00b4d8; /* 页脚Logo：亮蓝色，贴合夜晚风格 */
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+        }
+
+        .footer-contact {
+            font-size: 0.95rem;
+            color: #94a3b8; /* 页脚联系信息：浅灰蓝，保证可读性 */
+            margin-bottom: 1.5rem;
+        }
+
+        .copyright {
+            font-size: 0.85rem;
+            color: #64748b; /* 版权信息：深灰蓝，降低视觉权重 */
+        }
+
+        /* 响应式适配 */
+        @media (max-width: 992px) {
+            body {
+                padding-left: 0;
+            }
+
+            .sidebar {
+                display: none;
+            }
+
+            footer {
+                margin-left: 0;
+            }
+
+            .header-container {
+                justify-content: center;
+            }
+
+            .hero-section h1 {
+                font-size: 2.2rem;
+            }
+
+            /* 响应式：搜索框适配小屏幕 */
+            .search-section {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 0 1rem;
+            }
+
+            .search-input, .search-btn {
+                width: 100%;
+            }
+
+            .core-actions {
+                flex-direction: column;
+                gap: 1.5rem;
+                padding: 0 1rem;
+            }
+
+            .action-btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            /* 响应式：新增模块适配小屏幕 */
+            .lost-notice-list, .found-notice-list {
+                grid-template-columns: 1fr;
+            }
+
+            .guide-section, .stats-section {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 左侧悬浮折叠侧边栏（夜晚风格，展开宽度缩小为220px） -->
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <span>📚</span> 校园失物招领平台
+        </div>
+
+        <h3 class="sidebar-title"></h3>
+
+        <div class="sidebar-categories">
+            <!-- 子页面1：校园卡专区 -->
+            <a href="card.html" class="sidebar-card">
+                <div class="sidebar-icon">🪪</div>
+                <div class="sidebar-card-content">
+                    <h3>校园卡专区</h3>
+                    <p>校园卡、学生证、借阅证</p>
+                </div>
+            </a>
+
+            <!-- 子页面2：电子设备专区 -->
+            <a href="electronics.html" class="sidebar-card">
+                <div class="sidebar-icon">📱</div>
+                <div class="sidebar-card-content">
+                    <h3>电子设备专区</h3>
+                    <p>手机、耳机、电脑、平板</p>
+                </div>
+            </a>
+
+            <!-- 子页面3：书籍文具专区 -->
+            <a href="books.html" class="sidebar-card">
+                <div class="sidebar-icon">📖</div>
+                <div class="sidebar-card-content">
+                    <h3>书籍文具专区</h3>
+                    <p>教材、笔记本、钢笔等学习用品</p>
+                </div>
+            </a>
+
+            <!-- 子页面4：生活用品专区 -->
+            <a href="daily.html" class="sidebar-card">
+                <div class="sidebar-icon">🧣</div>
+                <div class="sidebar-card-content">
+                    <h3>生活用品专区</h3>
+                    <p>保温杯、雨伞、背包等日常用品</p>
+                </div>
+            </a>
+
+            <!-- 子页面5：衣物配饰专区 -->
+            <a href="clothes.html" class="sidebar-card">
+                <div class="sidebar-icon">👕</div>
+                <div class="sidebar-card-content">
+                    <h3>衣物配饰专区</h3>
+                    <p>外套、帽子、围巾、手表</p>
+                </div>
+            </a>
+
+            <!-- 子页面6：运动器材专区 -->
+            <a href="sports.html" class="sidebar-card">
+                <div class="sidebar-icon">⚽</div>
+                <div class="sidebar-card-content">
+                    <h3>运动器材专区</h3>
+                    <p>篮球、羽毛球拍、瑜伽垫</p>
+                </div>
+            </a>
+
+            <!-- 子页面7：失物发布指南 -->
+            <a href="guide-lost.html" class="sidebar-card">
+                <div class="sidebar-icon">❓</div>
+                <div class="sidebar-card-content">
+                    <h3>失物发布指南</h3>
+                    <p>如何发布遗失物品信息</p>
+                </div>
+            </a>
+
+            <!-- 子页面8：招领发布指南 -->
+            <a href="guide-found.html" class="sidebar-card">
+                <div class="sidebar-icon">📝</div>
+                <div class="sidebar-card-content">
+                    <h3>招领发布指南</h3>
+                    <p>如何发布捡拾物品信息</p>
+                </div>
+            </a>
+
+            <!-- 子页面9：联系与反馈 -->
+            <a href="contact.html" class="sidebar-card">
+                <div class="sidebar-icon">📞</div>
+                <div class="sidebar-card-content">
+                    <h3>联系与反馈</h3>
+                    <p>咨询问题、反馈意见、人工协助</p>
+                </div>
+            </a>
+        </div>
+    </aside>
+
+    <!-- 顶部导航栏 -->
+    <header>
+        <div class="header-container">
+            <div class="nav-links">
+                <a href="#hero">首页</a>
+                <a href="#lost-notice">最新失物</a>
+                <a href="#found-notice">最新招领</a>
+                <a href="contact.html">联系我们</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主内容区（新增搜索框，丰富功能） -->
+    <main id="hero">
+        <!-- 核心引导区（原有） -->
+        <section class="hero-section">
+            <h1>快速查找 · 便捷发布 · 让失物回家</h1>
+            <p>宁夏大学官方失物招领平台，汇聚全校失物与招领信息，用科技搭建互助桥梁</p>
+        </section>
+
+        <!-- 新增：全局物品搜索框 -->
+        <section class="search-section">
+            <input type="text" class="search-input" id="globalSearch" placeholder="输入物品名称、地点等关键词搜索（例：校园卡、保温杯）">
+            <button class="search-btn" id="searchBtn">
+                <span>🔍</span> 搜索
+            </button>
+        </section>
+
+        <!-- 核心功能按钮（原有） -->
+        <section class="core-actions">
+            <a href="guide-lost.html" class="action-btn">
+                <span>🔍</span> 我要找失物
+            </a>
+            <a href="guide-found.html" class="action-btn secondary">
+                <span>✅</span> 我要发布招领
+            </a>
+        </section>
+
+        <!-- 新增模块1：最新失物公告 -->
+        <section class="common-section" id="lost-notice">
+            <h2 class="section-title">
+                <icon>📢</icon> 最新失物公告
+            </h2>
+            <div class="lost-notice-list">
+                <!-- 失物卡片1 -->
+                <div class="notice-card" data-keywords="黑色双肩包 耐克 笔记本电脑 MacBook Pro 充电器 图书馆 三楼 自习室">
+                    <h3 class="notice-card-title">黑色双肩包（内含笔记本电脑）</h3>
+                    <div class="notice-card-info">
+                        <span>🕒</span> 遗失时间：2026-01-12 14:30
+                    </div>
+                    <div class="notice-card-info">
+                        <span>📍</span> 遗失地点：图书馆三楼自习室
+                    </div>
+                    <p class="notice-card-desc">双肩包为黑色耐克款，内含一台银色MacBook Pro，充电器，以及一本印有"宁夏大学"字样的笔记本。如有拾到者，请及时联系平台客服。</p>
+                </div>
+                <!-- 失物卡片2 -->
+                <div class="notice-card" data-keywords="红色校园卡 卡号 2023XXXX1234 张三 计算机科学与技术 一食堂 二楼 餐厅">
+                    <h3 class="notice-card-title">红色校园卡（卡号：2023XXXX1234）</h3>
+                    <div class="notice-card-info">
+                        <span>🕒</span> 遗失时间：2026-01-11 18:00
+                    </div>
+                    <div class="notice-card-info">
+                        <span>📍</span> 遗失地点：一食堂二楼餐厅
+                    </div>
+                    <p class="notice-card-desc">校园卡持卡人姓名：张三，专业：计算机科学与技术。如有拾到者，可直接联系本人（电话：138XXXX1234），也可交至校园卡服务中心。</p>
+                </div>
+                <!-- 失物卡片3 -->
+                <div class="notice-card" data-keywords="白色 AirPods Pro 左耳 耳机 教学楼A栋 302教室 划痕">
+                    <h3 class="notice-card-title">白色AirPods Pro（左耳丢失）</h3>
+                    <div class="notice-card-info">
+                        <span>🕒</span> 遗失时间：2026-01-10 10:00
+                    </div>
+                    <div class="notice-card-info">
+                        <span>📍</span> 遗失地点：教学楼A栋302教室
+                    </div>
+                    <p class="notice-card-desc">AirPods Pro充电盒为白色，左耳耳机丢失，耳机外壳有轻微划痕。如有拾到者，请联系平台客服，必有重谢。</p>
+                </div>
+            </div>
+            <a href="card.html" class="notice-more">查看更多失物信息 →</a>
+        </section>
+
+        <!-- 新增模块2：最新招领公告 -->
+        <section class="common-section" id="found-notice">
+            <h2 class="section-title">
+                <icon>🎉</icon> 最新招领公告
+            </h2>
+            <div class="found-notice-list">
+                <!-- 招领卡片1 -->
+                <div class="notice-card" data-keywords="蓝色保温杯 校徽 宁夏大学 500ml 操场 看台">
+                    <h3 class="notice-card-title">蓝色保温杯（印有"宁夏大学"校徽）</h3>
+                    <div class="notice-card-info">
+                        <span>🕒</span> 捡拾时间：2026-01-12 16:00
+                    </div>
+                    <div class="notice-card-info">
+                        <span>📍</span> 捡拾地点：操场看台
+                    </div>
+                    <p class="notice-card-desc">保温杯为蓝色，容量500ml，杯身印有宁夏大学校徽，底部有轻微磨损。请失主携带有效证件联系操场管理处领取，或通过本平台预约领取。</p>
+                </div>
+                <!-- 招领卡片2 -->
+                <div class="notice-card" data-keywords="数据结构与算法分析 教材 蓝色封面 李四 图书馆 借阅处">
+                    <h3 class="notice-card-title">《数据结构与算法分析》教材</h3>
+                    <div class="notice-card-info">
+                        <span>🕒</span> 捡拾时间：2026-01-11 20:00
+                    </div>
+                    <div class="notice-card-info">
+                        <span>📍</span> 捡拾地点：图书馆一楼借阅处
+                    </div>
+                    <p class="notice-card-desc">教材为蓝色封面，扉页有失主签名（李四），书中夹有一张图书馆借阅小票。请失主直接到图书馆一楼借阅处领取，联系电话：021-XXXX1234。</p>
+                </div>
+                <!-- 招领卡片3 -->
+                <div class="notice-card" data-keywords="黑色华为手机 Mate 60 Pro 卡通手机壳 二食堂 共享单车">
+                    <h3 class="notice-card-title">黑色华为手机（型号：Mate 60 Pro）</h3>
+                    <div class="notice-card-info">
+                        <span>🕒</span> 捡拾时间：2026-01-10 19:00
+                    </div>
+                    <div class="notice-card-info">
+                        <span>📍</span> 捡拾地点：二食堂门口共享单车停放处
+                    </div>
+                    <p class="notice-card-desc">手机为黑色，屏幕已锁屏，手机壳为卡通图案。请失主通过本平台联系客服，提供手机内相关信息验证身份后，前往学生事务中心领取。</p>
+                </div>
+            </div>
+            <a href="daily.html" class="notice-more">查看更多招领信息 →</a>
+        </section>
+
+        <!-- 新增模块3：平台使用指南 -->
+        <section class="common-section">
+            <h2 class="section-title">
+                <icon>📖</icon> 平台使用指南
+            </h2>
+            <div class="guide-section">
+                <!-- 指南卡片1 -->
+                <div class="guide-card">
+                    <div class="guide-card-icon">📝</div>
+                    <h3 class="guide-card-title">发布失物信息</h3>
+                    <p class="guide-card-desc">点击首页"我要找失物"按钮，填写物品名称、遗失时间、地点、详细描述及联系方式，上传物品照片（可选），提交后等待审核通过即可展示。</p>
+                </div>
+                <!-- 指南卡片2 -->
+                <div class="guide-card">
+                    <div class="guide-card-icon">🎉</div>
+                    <h3 class="guide-card-title">发布招领信息</h3>
+                    <p class="guide-card-desc">点击首页"我要发布招领"按钮，填写物品名称、捡拾时间、地点、详细描述，上传物品清晰照片，提交后审核通过即可在招领公告区展示。</p>
+                </div>
+                <!-- 指南卡片3 -->
+                <div class="guide-card">
+                    <div class="guide-card-icon">🔍</div>
+                    <h3 class="guide-card-title">查找物品信息</h3>
+                    <p class="guide-card-desc">可通过侧边栏分类专区查找对应物品，也可在首页搜索框中输入物品名称、地点等关键词，快速筛选相关失物/招领信息。</p>
+                </div>
+                <!-- 指南卡片4 -->
+                <div class="guide-card">
+                    <div class="guide-card-icon">📞</div>
+                    <h3 class="guide-card-title">联系与认领</h3>
+                    <p class="guide-card-desc">找到对应物品后，可直接联系信息发布者，或通过平台客服协助沟通。认领物品时请携带有效证件，确保物品归属无误。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 新增模块4：平台数据统计 -->
+        <section class="common-section">
+            <h2 class="section-title">
+                <icon>📊</icon> 平台数据统计
+            </h2>
+            <div class="stats-section">
+                <!-- 统计卡片1 -->
+                <div class="stats-card">
+                    <div class="stats-card-number">286</div>
+                    <div class="stats-card-title">累计发布失物信息</div>
+                </div>
+                <!-- 统计卡片2 -->
+                <div class="stats-card">
+                    <div class="stats-card-number">243</div>
+                    <div class="stats-card-title">累计发布招领信息</div>
+                </div>
+                <!-- 统计卡片3 -->
+                <div class="stats-card">
+                    <div class="stats-card-number">198</div>
+                    <div class="stats-card-title">已成功找回物品</div>
+                </div>
+                <!-- 统计卡片4 -->
+                <div class="stats-card">
+                    <div class="stats-card-number">96%</div>
+                    <div class="stats-card-title">用户满意度</div>
+                </div>
+                <!-- 统计卡片5 -->
+                <div class="stats-card">
+                    <div class="stats-card-number">1500+</div>
+                    <div class="stats-card-title">累计平台访问量</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-logo">
+                <span>📚</span> 宁夏大学失物招领平台
+            </div>
+            <div class="footer-contact">
+                咨询电话：138-XXXX-XXXX | 办公地址：学生活动中心203室 | 工作时间：周一至周五 9:00-17:00
+            </div>
+            <div class="copyright">
+                © 2026 宁夏大学学生会 版权所有
+            </div>
+        </div>
+    </footer>
+
+    <!-- 新增：搜索功能JavaScript逻辑（前端静态筛选） -->
+    <script>
+        // 获取DOM元素
+        const searchInput = document.getElementById('globalSearch');
+        const searchBtn = document.getElementById('searchBtn');
+        const allNoticeCards = document.querySelectorAll('.notice-card');
+
+        // 核心搜索函数
+        function performSearch() {
+            // 获取搜索关键词，去除首尾空格并转为小写
+            const searchKeyword = searchInput.value.trim().toLowerCase();
+
+            // 遍历所有物品卡片，进行筛选
+            allNoticeCards.forEach(card => {
+                // 获取卡片的关键词属性，转为小写
+                const cardKeywords = card.dataset.keywords.toLowerCase();
+                const cardTitle = card.querySelector('.notice-card-title').textContent.toLowerCase();
+                const cardDesc = card.querySelector('.notice-card-desc').textContent.toLowerCase();
+
+                // 判断：关键词是否匹配（卡片关键词/标题/描述中包含搜索词）
+                if (searchKeyword === '') {
+                    // 若无关键词，显示所有卡片
+                    card.classList.remove('hidden');
+                } else if (cardKeywords.includes(searchKeyword) || cardTitle.includes(searchKeyword) || cardDesc.includes(searchKeyword)) {
+                    // 匹配成功，显示卡片
+                    card.classList.remove('hidden');
+                } else {
+                    // 匹配失败，隐藏卡片
+                    card.classList.add('hidden');
+                }
+            });
+        }
+
+        // 绑定搜索按钮点击事件
+        searchBtn.addEventListener('click', performSearch);
+
+        // 绑定输入框回车事件（按下Enter直接搜索）
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+
+        // 输入框内容变化时，若清空则显示所有卡片
+        searchInput.addEventListener('input', function() {
+            if (this.value.trim() === '') {
+                allNoticeCards.forEach(card => {
+                    card.classList.remove('hidden');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

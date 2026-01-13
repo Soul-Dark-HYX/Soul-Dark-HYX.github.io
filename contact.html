@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>宁夏大学 - 联系与反馈</title>
+    <style>
+        /* 全局统一样式（与整套平台保持一致） */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* 头部导航栏（统一样式，支持返回首页） */
+        header {
+            background-color: #4a90e2;
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
+        .header-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: white;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 1.5rem;
+            font-size: 0.95rem;
+            transition: opacity 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+
+        /* 主内容区 */
+        main {
+            width: 90%;
+            max-width: 1200px;
+            margin: 2rem auto;
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        /* 页面标题 */
+        .page-title {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .page-title h1 {
+            color: #4a90e2;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-title p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* 联系与反馈特有样式 */
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .contact-wrapper {
+                grid-template-columns: 1fr; /* 移动端单列布局 */
+            }
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 2rem;
+            height: 100%;
+        }
+
+        .card-title {
+            color: #4a90e2;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 1rem;
+        }
+
+        /* 联系方式模块 */
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.8rem;
+            font-size: 1rem;
+        }
+
+        .info-item .icon {
+            font-size: 1.2rem;
+            color: #4a90e2;
+            background-color: #eef2f7;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .info-item .content h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+            color: #333;
+        }
+
+        .info-item .content p {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* 反馈表单模块 */
+        .feedback-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-size: 0.95rem;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .form-group input, .form-group textarea {
+            padding: 0.9rem;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: #333;
+            background-color: #fafbfc;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #4a90e2;
+            background-color: white;
+        }
+
+        .form-group textarea {
+            min-height: 180px;
+            resize: vertical;
+        }
+
+        /* 按钮样式 */
+        .btn {
+            padding: 0.9rem 1.5rem;
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: #3a80d2;
+        }
+
+        /* 常见问题模块 */
+        .faq-section {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 2rem;
+            margin-top: 1rem;
+        }
+
+        .faq-item {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .faq-item h3 {
+            font-size: 1.1rem;
+            color: #4a90e2;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .faq-item p {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            padding-left: 1.2rem;
+        }
+
+        /* 页脚（统一样式） */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 5rem;
+        }
+
+        .footer-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-contact {
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <!-- 统一导航栏（支持返回首页和其他核心页面） -->
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <span>📚</span> 宁夏大学失物招领平台
+            </a>
+            <div class="nav-links">
+                <a href="index.html">返回首页</a>
+                <a href="guide-lost.html">失物发布指南</a>
+                <a href="guide-found.html">招领发布指南</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主内容区 -->
+    <main>
+        <!-- 页面标题 -->
+        <div class="page-title">
+            <h1>📞 联系与反馈</h1>
+            <p>如有平台使用问题、物品认领协助，或意见建议，可通过以下方式联系我们</p>
+        </div>
+
+        <!-- 核心内容：联系方式 + 反馈表单 -->
+        <div class="contact-wrapper">
+            <!-- 左侧：人工联系方式 -->
+            <div class="card">
+                <h2 class="card-title">📋 官方联系方式</h2>
+                <div class="info-item">
+                    <div class="icon">📞</div>
+                    <div class="content">
+                        <h3>办公电话</h3>
+                        <p>138-XXXX-XXXX（工作日 9:00-17:00）</p>
+                        <p>紧急协助：159-XXXX-XXXX（节假日值班）</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="icon">🏠</div>
+                    <div class="content">
+                        <h3>办公地址</h3>
+                        <p>宁夏大学 学生活动中心 203室（失物招领办公室）</p>
+                        <p>接待时间：周一至周五 10:00-16:00</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="icon">📧</div>
+                    <div class="content">
+                        <h3>官方邮箱</h3>
+                        <p>lostfound@xxuniversity.edu.cn</p>
+                        <p>邮件主题格式：【失物/招领/反馈】+ 姓名 + 事项</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="icon">💬</div>
+                    <div class="content">
+                        <h3>官方微信</h3>
+                        <p>宁夏大学学生会（微信号：xxdx_xsh）</p>
+                        <p>回复时间：工作日 9:00-21:00</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 右侧：意见反馈表单 -->
+            <div class="card">
+                <h2 class="card-title">📝 意见反馈/问题提交</h2>
+                <form class="feedback-form">
+                    <div class="form-group">
+                        <label for="name">姓名（必填）</label>
+                        <input type="text" id="name" placeholder="请输入你的姓名/学号" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact">联系方式（必填）</label>
+                        <input type="text" id="contact" placeholder="请输入手机号/微信，便于回复" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">反馈主题</label>
+                        <input type="text" id="subject" placeholder="如：平台使用问题、物品认领协助、功能建议等">
+                    </div>
+                    <div class="form-group">
+                        <label for="content">反馈内容（必填）</label>
+                        <textarea id="content" placeholder="请详细描述你的问题、意见或需求，越具体越便于我们处理..." required></textarea>
+                    </div>
+                    <button type="button" class="btn">提交反馈</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- 下方：常见问题FAQ -->
+        <div class="faq-section">
+            <h2 class="card-title">❓ 常见问题</h2>
+            <div class="faq-item">
+                <h3>Q1：提交的失物/招领信息多久会上架？</h3>
+                <p>工作人员会在1-2个工作日内进行审核，审核通过后会立即上架展示，同时通过你填写的联系方式通知你。</p>
+            </div>
+            <div class="faq-item">
+                <h3>Q2：如何确认对方是物品的真实失主/捡拾人？</h3>
+                <p>可要求对方详细描述物品的独有特征（如刻字、贴纸、内含物品等），校园卡/学生证可核对姓名、学号，贵重物品可核对购买信息，建议在公共场合完成交接。</p>
+            </div>
+            <div class="faq-item">
+                <h3>Q3：物品超过多久无人认领会做处理？</h3>
+                <p>普通物品保留30天，贵重物品保留90天，逾期无人认领的物品将统一捐赠给公益组织，现金将上交学校财务处。</p>
+            </div>
+            <div class="faq-item">
+                <h3>Q4：发布的信息如何下架？</h3>
+                <p>物品找回/交接完成后，可直接联系平台工作人员（电话/微信/邮箱），提供发布时的姓名和联系方式，工作人员将在24小时内完成下架。</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- 统一页脚 -->
+    <footer>
+        <div class="footer-container">
+            <h3>宁夏大学校学生会 - 生活服务部</h3>
+            <p class="footer-contact">
+                咨询电话：138-XXXX-XXXX | 办公地址：学生活动中心203室 | 工作时间：周一至周五 9:00-17:00
+            </p>
+            <p style="margin-top: 1rem; font-size: 0.8rem;">© 2026 宁夏大学 版权所有</p>
+        </div>
+    </footer>
+</body>
+</html>
