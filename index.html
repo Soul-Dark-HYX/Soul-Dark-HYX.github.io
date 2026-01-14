@@ -31,7 +31,7 @@
         /* 左侧悬浮折叠侧边栏 */
         .sidebar {
             width: 40px; 
-            --sidebar-expand-width: 220px; 
+            --sidebar-expand-width: 300px; /* 侧边栏展开宽度参数 */
             height: 100vh;
             /* 夜晚风格背景 */
             background: linear-gradient(180deg, #16213e 0%, #0f172a 100%);
@@ -133,7 +133,7 @@
             line-height: 1.3;
         }
 
-        /* 顶部导航栏 */
+        /* 顶部导航栏 - 关键修改：改为向左对齐 */
         header {
             padding: 1.2rem 0;
             border-bottom: 1px solid #2a3447; /* 深色分割线，贴合夜晚风格 */
@@ -149,7 +149,8 @@
             max-width: 1400px;
             margin: 0 auto;
             display: flex;
-            justify-content: flex-end;
+            /* 关键修改：从 justify-content: flex-end; 改为 justify-content: flex-start; 实现左对齐 */
+            justify-content: flex-start;
             align-items: center;
         }
 
@@ -541,7 +542,9 @@
             }
 
             .header-container {
-                justify-content: center;
+                /* 响应式下保持左对齐，若需居中可改为 justify-content: center; */
+                justify-content: flex-start;
+                padding-left: 1rem;
             }
 
             .hero-section h1 {
@@ -674,7 +677,7 @@
         </div>
     </aside>
 
-    <!-- 顶部导航栏 -->
+    <!-- 顶部导航栏（已改为左对齐） -->
     <header>
         <div class="header-container">
             <div class="nav-links">
@@ -710,6 +713,40 @@
             <a href="guide-found.html" class="action-btn secondary">
                 <span>✅</span> 我要发布招领
             </a>
+        </section>
+
+        <!-- 调整：平台数据统计模块（移至最新失物公告上方） -->
+        <section class="common-section">
+            <h2 class="section-title">
+                <icon>📊</icon> 平台数据统计
+            </h2>
+            <div class="stats-section">
+                <!-- 统计卡片1 -->
+                <div class="stats-card">
+                    <div class="stats-card-number">286</div>
+                    <div class="stats-card-title">累计发布失物信息</div>
+                </div>
+                <!-- 统计卡片2 -->
+                <div class="stats-card">
+                    <div class="stats-card-number">243</div>
+                    <div class="stats-card-title">累计发布招领信息</div>
+                </div>
+                <!-- 统计卡片3 -->
+                <div class="stats-card">
+                    <div class="stats-card-number">198</div>
+                    <div class="stats-card-title">已成功找回物品</div>
+                </div>
+                <!-- 统计卡片4 -->
+                <div class="stats-card">
+                    <div class="stats-card-number">96%</div>
+                    <div class="stats-card-title">用户满意度</div>
+                </div>
+                <!-- 统计卡片5 -->
+                <div class="stats-card">
+                    <div class="stats-card-number">1500+</div>
+                    <div class="stats-card-title">累计平台访问量</div>
+                </div>
+            </div>
         </section>
 
         <!-- 新增模块1：最新失物公告 -->
@@ -827,40 +864,6 @@
                     <div class="guide-card-icon">📞</div>
                     <h3 class="guide-card-title">联系与认领</h3>
                     <p class="guide-card-desc">找到对应物品后，可直接联系信息发布者，或通过平台客服协助沟通。认领物品时请携带有效证件，确保物品归属无误。</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- 新增模块4：平台数据统计 -->
-        <section class="common-section">
-            <h2 class="section-title">
-                <icon>📊</icon> 平台数据统计
-            </h2>
-            <div class="stats-section">
-                <!-- 统计卡片1 -->
-                <div class="stats-card">
-                    <div class="stats-card-number">286</div>
-                    <div class="stats-card-title">累计发布失物信息</div>
-                </div>
-                <!-- 统计卡片2 -->
-                <div class="stats-card">
-                    <div class="stats-card-number">243</div>
-                    <div class="stats-card-title">累计发布招领信息</div>
-                </div>
-                <!-- 统计卡片3 -->
-                <div class="stats-card">
-                    <div class="stats-card-number">198</div>
-                    <div class="stats-card-title">已成功找回物品</div>
-                </div>
-                <!-- 统计卡片4 -->
-                <div class="stats-card">
-                    <div class="stats-card-number">96%</div>
-                    <div class="stats-card-title">用户满意度</div>
-                </div>
-                <!-- 统计卡片5 -->
-                <div class="stats-card">
-                    <div class="stats-card-number">1500+</div>
-                    <div class="stats-card-title">累计平台访问量</div>
                 </div>
             </div>
         </section>

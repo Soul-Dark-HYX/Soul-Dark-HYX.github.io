@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>宁夏大学 - 失物发布指南</title>
     <style>
-        /* 全局统一样式 */
+        /* 全局统一样式（黑夜风格改造，与全平台保持完全一致） */
         * {
             margin: 0;
             padding: 0;
@@ -14,19 +14,25 @@
         }
 
         body {
-            background-color: #f5f7fa;
-            color: #333;
+            /* 黑夜风格主背景：深灰蓝渐变，统一全平台视觉基调 */
+            background-color: #1a1a2e;
+            background-image: linear-gradient(180deg, #16213e 0%, #0f172a 100%);
+            color: #e2e8f0; /* 全局基础浅色文字，保证深色背景下可读性 */
             line-height: 1.6;
+            min-height: 100vh;
         }
 
         header {
-            background-color: #4a90e2;
-            color: white;
+            /* 黑夜风格导航栏：半透明深灰+毛玻璃效果，增强高级感与层次感 */
+            background-color: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            color: #ffffff;
             padding: 1rem 0;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); /* 深色阴影，避免融边，提升立体感 */
             position: sticky;
             top: 0;
             z-index: 999;
+            border-bottom: 1px solid #2a3447; /* 深色边框，与背景形成柔和区分 */
         }
 
         .header-container {
@@ -45,19 +51,19 @@
             align-items: center;
             gap: 0.5rem;
             text-decoration: none;
-            color: white;
+            color: #00b4d8; /* 全平台统一高亮色：亮蓝色，替代原有浅蓝，醒目且协调 */
         }
 
         .nav-links a {
-            color: white;
+            color: #e2e8f0; /* 导航文字：浅灰，适配黑夜风格，保证基础可读性 */
             text-decoration: none;
             margin-left: 1.5rem;
             font-size: 0.95rem;
-            transition: opacity 0.3s ease;
+            transition: all 0.3s ease; /* 平滑过渡，提升交互体验 */
         }
 
         .nav-links a:hover {
-            opacity: 0.8;
+            color: #00b4d8; /* hover时变为高亮蓝，与logo、按钮呼应，增强交互反馈 */
             text-decoration: underline;
         }
 
@@ -76,29 +82,32 @@
         }
 
         .page-title h1 {
-            color: #4a90e2;
+            color: #00b4d8; /* 页面标题：高亮蓝，突出主题，与全平台风格统一 */
             font-size: 2rem;
             margin-bottom: 0.5rem;
         }
 
         .page-title p {
-            color: #666;
+            color: #94a3b8; /* 描述文字：浅灰蓝，降低视觉权重，建立清晰文字层级 */
             font-size: 0.95rem;
         }
 
-        /* 指南特有样式 */
+        /* 指南特有样式（黑夜风格改造，与全平台统一） */
         .guide-section {
-            background-color: white;
+            /* 指南容器：半透明深灰+毛玻璃效果，贴合黑夜风格，增强质感 */
+            background-color: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(10px);
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* 深色阴影，营造静谧浏览氛围 */
             padding: 2rem;
+            border: 1px solid #2a3447; /* 深色边框，提升容器立体感，避免与背景融合 */
         }
 
         .guide-section h2 {
-            color: #4a90e2;
+            color: #00b4d8; /* 指南大标题：高亮蓝，与全平台风格统一，突出章节划分 */
             font-size: 1.5rem;
             margin-bottom: 1.5rem;
-            border-left: 4px solid #4a90e2;
+            border-left: 4px solid #00b4d8; /* 左侧高亮蓝竖线，替代原有浅蓝，强化章节视觉标识 */
             padding-left: 1rem;
         }
 
@@ -108,7 +117,7 @@
 
         .guide-step h3 {
             font-size: 1.2rem;
-            color: #333;
+            color: #e2e8f0; /* 步骤标题：浅灰，保证清晰可读，突出步骤层级 */
             margin-bottom: 1rem;
             display: flex;
             align-items: center;
@@ -116,7 +125,7 @@
         }
 
         .guide-step h3 .step-num {
-            background-color: #4a90e2;
+            background-color: #00b4d8; /* 步骤数字背景：高亮蓝，与全平台风格统一 */
             color: white;
             width: 24px;
             height: 24px;
@@ -125,10 +134,11 @@
             align-items: center;
             justify-content: center;
             font-size: 0.9rem;
+            border: 1px solid rgba(255, 255, 255, 0.1); /* 轻微边框，增强立体感 */
         }
 
         .guide-step p {
-            color: #666;
+            color: #94a3b8; /* 步骤内容：浅灰蓝，降低视觉权重，保证流畅浏览 */
             font-size: 0.95rem;
             line-height: 1.8;
             margin-bottom: 0.5rem;
@@ -136,43 +146,50 @@
         }
 
         .guide-tips {
-            background-color: #eef2f7;
+            /* 提示模块：深灰背景+深色边框，适配黑夜风格，突出提示内容 */
+            background-color: rgba(30, 41, 59, 0.8);
             border-radius: 8px;
             padding: 1rem;
             margin-top: 1rem;
-            color: #333;
+            color: #e2e8f0;
+            border: 1px solid #2a3447;
         }
 
         .guide-tips h4 {
-            color: #4a90e2;
+            color: #00b4d8; /* 提示标题：高亮蓝，突出提示模块核心 */
             margin-bottom: 0.5rem;
             font-size: 1rem;
         }
 
         .btn {
             padding: 0.5rem 1rem;
-            background-color: #4a90e2;
+            background-color: #00b4d8; /* 按钮主色：高亮蓝，全平台统一样式 */
             color: white;
             border: none;
             border-radius: 6px;
             cursor: pointer;
             font-size: 0.9rem;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
             text-decoration: none;
             display: inline-block;
             margin-top: 1rem;
+            border: 1px solid #00b4d8;
         }
 
         .btn:hover {
-            background-color: #3a80d2;
+            background-color: #0096c7; /* hover时颜色加深，增强层次感 */
+            border-color: #0096c7;
+            box-shadow: 0 0 10px rgba(0, 180, 216, 0.2); /* 柔光阴影，在深色背景下更醒目 */
         }
 
         footer {
-            background-color: #333;
-            color: white;
+            /* 黑夜风格页脚：半透明深灰+深色边框，与导航栏呼应，全平台视觉统一 */
+            background-color: rgba(15, 23, 42, 0.9);
+            color: #e2e8f0;
             text-align: center;
             padding: 2rem 0;
             margin-top: 5rem;
+            border-top: 1px solid #2a3447; /* 深色边框，增强页面底部层次感 */
         }
 
         .footer-container {
@@ -184,7 +201,7 @@
         .footer-contact {
             margin-top: 1rem;
             font-size: 0.85rem;
-            color: #ccc;
+            color: #94a3b8; /* 页脚联系信息：浅灰蓝，适配黑夜风格 */
         }
 
         @media (max-width: 768px) {
@@ -205,17 +222,17 @@
             }
 
             .guide-section {
-                padding: 1.5rem;
+                padding: 1.5rem; /* 移动端缩减内边距，提升浏览体验 */
             }
         }
     </style>
 </head>
 <body>
-    <!-- 统一导航栏 -->
+    <!-- 统一导航栏（黑夜风格视觉优化，与其他专区保持一致，修正平台名称） -->
     <header>
         <div class="header-container">
             <a href="index.html" class="logo">
-                <span>📚</span> XX大学失物招领平台
+                <span>📚</span> 宁夏大学失物招领平台
             </a>
             <div class="nav-links">
                 <a href="index.html">返回首页</a>
@@ -231,7 +248,7 @@
             <p>详细了解如何发布遗失物品信息，提高物品找回概率</p>
         </div>
 
-        <!-- 指南内容 -->
+        <!-- 指南内容（完整保留核心信息，优化视觉呈现） -->
         <section class="guide-section">
             <h2>发布前准备</h2>
             <div class="guide-step">
@@ -286,14 +303,14 @@
         </section>
     </main>
 
-    <!-- 统一页脚 -->
+    <!-- 统一页脚（黑夜风格视觉优化，与其他专区保持一致） -->
     <footer>
         <div class="footer-container">
             <h3>宁夏大学校学生会 - 生活服务部</h3>
             <p class="footer-contact">
                 咨询电话：138-XXXX-XXXX | 办公地址：学生活动中心203室 | 工作时间：周一至周五 9:00-17:00
             </p>
-            <p style="margin-top: 1rem; font-size: 0.8rem;">© 2026 宁夏大学 版权所有</p>
+            <p style="margin-top: 1rem; font-size: 0.8rem; color: #64748b;">© 2026 宁夏大学 版权所有</p>
         </div>
     </footer>
 </body>

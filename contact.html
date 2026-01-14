@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>宁夏大学 - 联系与反馈</title>
     <style>
-        /* 全局统一样式（与整套平台保持一致） */
+        /* 全局统一样式（黑夜风格改造，与全平台保持完全一致） */
         * {
             margin: 0;
             padding: 0;
@@ -14,20 +14,26 @@
         }
 
         body {
-            background-color: #f5f7fa;
-            color: #333;
+            /* 黑夜风格主背景：深灰蓝渐变，统一全平台视觉基调 */
+            background-color: #1a1a2e;
+            background-image: linear-gradient(180deg, #16213e 0%, #0f172a 100%);
+            color: #e2e8f0; /* 全局基础浅色文字，保证深色背景下可读性 */
             line-height: 1.6;
+            min-height: 100vh;
         }
 
-        /* 头部导航栏（统一样式，支持返回首页） */
+        /* 头部导航栏（黑夜风格优化，与全平台统一） */
         header {
-            background-color: #4a90e2;
-            color: white;
+            /* 半透明深灰+毛玻璃效果，增强高级感与层次感 */
+            background-color: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            color: #ffffff;
             padding: 1rem 0;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); /* 深色阴影，避免融边 */
             position: sticky;
             top: 0;
             z-index: 999;
+            border-bottom: 1px solid #2a3447; /* 深色边框，与背景柔和区分 */
         }
 
         .header-container {
@@ -46,19 +52,19 @@
             align-items: center;
             gap: 0.5rem;
             text-decoration: none;
-            color: white;
+            color: #00b4d8; /* 全平台统一高亮色：亮蓝色 */
         }
 
         .nav-links a {
-            color: white;
+            color: #e2e8f0; /* 导航文字：浅灰，适配黑夜风格 */
             text-decoration: none;
             margin-left: 1.5rem;
             font-size: 0.95rem;
-            transition: opacity 0.3s ease;
+            transition: all 0.3s ease; /* 平滑过渡，提升交互体验 */
         }
 
         .nav-links a:hover {
-            opacity: 0.8;
+            color: #00b4d8; /* hover时变为高亮蓝，增强交互反馈 */
             text-decoration: underline;
         }
 
@@ -79,17 +85,17 @@
         }
 
         .page-title h1 {
-            color: #4a90e2;
+            color: #00b4d8; /* 页面标题：高亮蓝，突出主题，与全平台统一 */
             font-size: 2rem;
             margin-bottom: 0.5rem;
         }
 
         .page-title p {
-            color: #666;
+            color: #94a3b8; /* 描述文字：浅灰蓝，降低视觉权重，建立文字层级 */
             font-size: 0.95rem;
         }
 
-        /* 联系与反馈特有样式 */
+        /* 联系与反馈特有样式（黑夜风格改造） */
         .contact-wrapper {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -98,30 +104,33 @@
 
         @media (max-width: 768px) {
             .contact-wrapper {
-                grid-template-columns: 1fr; /* 移动端单列布局 */
+                grid-template-columns: 1fr; /* 移动端单列布局，保留原有响应式逻辑 */
             }
         }
 
         .card {
-            background-color: white;
+            /* 卡片容器：半透明深灰+毛玻璃效果，贴合黑夜风格，增强质感 */
+            background-color: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(10px);
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* 深色阴影，营造静谧黑夜氛围 */
             padding: 2rem;
             height: 100%;
+            border: 1px solid #2a3447; /* 深色边框，提升立体感，避免与背景融合 */
         }
 
         .card-title {
-            color: #4a90e2;
+            color: #00b4d8; /* 卡片标题：高亮蓝，与全平台风格统一 */
             font-size: 1.5rem;
             margin-bottom: 1.5rem;
             display: flex;
             align-items: center;
             gap: 0.8rem;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid #2a3447; /* 深色分割线，替代原有浅灰，保持风格统一 */
             padding-bottom: 1rem;
         }
 
-        /* 联系方式模块 */
+        /* 联系方式模块（黑夜风格优化） */
         .info-item {
             display: flex;
             align-items: flex-start;
@@ -132,8 +141,8 @@
 
         .info-item .icon {
             font-size: 1.2rem;
-            color: #4a90e2;
-            background-color: #eef2f7;
+            color: #00b4d8; /* 图标：高亮蓝，与全平台统一 */
+            background-color: #1e293b; /* 图标背景：深灰蓝，适配黑夜风格 */
             width: 40px;
             height: 40px;
             border-radius: 50%;
@@ -141,21 +150,22 @@
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
+            border: 1px solid #2a3447; /* 深色边框，增强图标立体感 */
         }
 
         .info-item .content h3 {
             font-size: 1.1rem;
             margin-bottom: 0.3rem;
-            color: #333;
+            color: #e2e8f0; /* 信息标题：浅灰，保证清晰可读 */
         }
 
         .info-item .content p {
-            color: #666;
+            color: #94a3b8; /* 信息内容：浅灰蓝，降低视觉权重，建立文字层级 */
             font-size: 0.95rem;
             line-height: 1.7;
         }
 
-        /* 反馈表单模块 */
+        /* 反馈表单模块（黑夜风格优化，保证表单交互体验） */
         .feedback-form {
             display: flex;
             flex-direction: column;
@@ -170,24 +180,24 @@
 
         .form-group label {
             font-size: 0.95rem;
-            color: #333;
+            color: #e2e8f0; /* 表单标签：浅灰，保证可读性 */
             font-weight: 500;
         }
 
         .form-group input, .form-group textarea {
             padding: 0.9rem;
-            border: 1px solid #eee;
+            border: 1px solid #2a3447; /* 表单边框：深色，适配黑夜风格 */
             border-radius: 8px;
             font-size: 0.9rem;
-            color: #333;
-            background-color: #fafbfc;
-            transition: border-color 0.3s ease;
+            color: #e2e8f0; /* 表单输入文字：浅灰，保证可读性 */
+            background-color: rgba(30, 41, 59, 0.8); /* 表单背景：深灰，贴合黑夜风格 */
+            transition: border-color 0.3s ease, background-color 0.3s ease;
         }
 
         .form-group input:focus, .form-group textarea:focus {
             outline: none;
-            border-color: #4a90e2;
-            background-color: white;
+            border-color: #00b4d8; /* 聚焦时边框变为高亮蓝，增强交互反馈 */
+            background-color: rgba(30, 41, 59, 1); /* 聚焦时加深背景，提升视觉聚焦感 */
         }
 
         .form-group textarea {
@@ -195,37 +205,43 @@
             resize: vertical;
         }
 
-        /* 按钮样式 */
+        /* 按钮样式（黑夜风格优化，与全平台统一） */
         .btn {
             padding: 0.9rem 1.5rem;
-            background-color: #4a90e2;
+            background-color: #00b4d8; /* 按钮主色：高亮蓝，全平台统一样式 */
             color: white;
             border: none;
             border-radius: 8px;
             cursor: pointer;
             font-size: 1rem;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
             text-align: center;
             text-decoration: none;
+            border: 1px solid #00b4d8;
         }
 
         .btn:hover {
-            background-color: #3a80d2;
+            background-color: #0096c7; /* hover时颜色加深，增强层次感 */
+            border-color: #0096c7;
+            box-shadow: 0 0 10px rgba(0, 180, 216, 0.2); /* 柔光阴影，在深色背景下更醒目 */
         }
 
-        /* 常见问题模块 */
+        /* 常见问题模块（黑夜风格优化） */
         .faq-section {
-            background-color: white;
+            /* FAQ容器：与卡片样式统一，保持视觉一致性 */
+            background-color: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(10px);
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             padding: 2rem;
             margin-top: 1rem;
+            border: 1px solid #2a3447;
         }
 
         .faq-item {
             margin-bottom: 1.5rem;
             padding-bottom: 1.5rem;
-            border-bottom: 1px solid #f0f0f0;
+            border-bottom: 1px solid #2a3447; /* 深色分割线，保持风格统一 */
         }
 
         .faq-item:last-child {
@@ -236,7 +252,7 @@
 
         .faq-item h3 {
             font-size: 1.1rem;
-            color: #4a90e2;
+            color: #00b4d8; /* FAQ问题：高亮蓝，突出重点 */
             margin-bottom: 0.8rem;
             display: flex;
             align-items: center;
@@ -244,19 +260,21 @@
         }
 
         .faq-item p {
-            color: #666;
+            color: #94a3b8; /* FAQ答案：浅灰蓝，降低视觉权重，保证可读性 */
             font-size: 0.95rem;
             line-height: 1.7;
             padding-left: 1.2rem;
         }
 
-        /* 页脚（统一样式） */
+        /* 页脚（黑夜风格优化，与全平台统一） */
         footer {
-            background-color: #333;
-            color: white;
+            /* 半透明深灰+深色边框，与导航栏呼应 */
+            background-color: rgba(15, 23, 42, 0.9);
+            color: #e2e8f0;
             text-align: center;
             padding: 2rem 0;
             margin-top: 5rem;
+            border-top: 1px solid #2a3447; /* 深色边框，增强页面底部层次感 */
         }
 
         .footer-container {
@@ -268,12 +286,12 @@
         .footer-contact {
             margin-top: 1rem;
             font-size: 0.85rem;
-            color: #ccc;
+            color: #94a3b8; /* 页脚联系信息：浅灰蓝，适配黑夜风格 */
         }
     </style>
 </head>
 <body>
-    <!-- 统一导航栏（支持返回首页和其他核心页面） -->
+    <!-- 统一导航栏（黑夜风格视觉优化，与其他专区保持一致） -->
     <header>
         <div class="header-container">
             <a href="index.html" class="logo">
@@ -388,7 +406,7 @@
             <p class="footer-contact">
                 咨询电话：138-XXXX-XXXX | 办公地址：学生活动中心203室 | 工作时间：周一至周五 9:00-17:00
             </p>
-            <p style="margin-top: 1rem; font-size: 0.8rem;">© 2026 宁夏大学 版权所有</p>
+            <p style="margin-top: 1rem; font-size: 0.8rem; color: #64748b;">© 2026 宁夏大学 版权所有</p>
         </div>
     </footer>
 </body>

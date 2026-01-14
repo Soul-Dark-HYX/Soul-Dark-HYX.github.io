@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>宁夏大学 - 书籍文具专区</title>
     <style>
-        /* 全局统一样式 */
+        /* 全局统一样式（黑夜风格改造） */
         * {
             margin: 0;
             padding: 0;
@@ -14,19 +14,25 @@
         }
 
         body {
-            background-color: #f5f7fa;
-            color: #333;
+            /* 黑夜风格主背景：深灰蓝渐变，替代原有浅灰 */
+            background-color: #1a1a2e;
+            background-image: linear-gradient(180deg, #16213e 0%, #0f172a 100%);
+            color: #e2e8f0; /* 全局浅色文字，保证可读性 */
             line-height: 1.6;
+            min-height: 100vh;
         }
 
         header {
-            background-color: #4a90e2;
-            color: white;
+            /* 黑夜风格导航栏：半透明深灰，添加毛玻璃效果 */
+            background-color: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            color: #ffffff;
             padding: 1rem 0;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); /* 深色阴影，增强层次感 */
             position: sticky;
             top: 0;
             z-index: 999;
+            border-bottom: 1px solid #2a3447; /* 深色边框，避免与背景融合 */
         }
 
         .header-container {
@@ -45,19 +51,19 @@
             align-items: center;
             gap: 0.5rem;
             text-decoration: none;
-            color: white;
+            color: #00b4d8; /* 黑夜风格高亮色：亮蓝色，替代原有浅蓝 */
         }
 
         .nav-links a {
-            color: white;
+            color: #e2e8f0; /* 导航文字：浅灰，适配黑夜风格 */
             text-decoration: none;
             margin-left: 1.5rem;
             font-size: 0.95rem;
-            transition: opacity 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         .nav-links a:hover {
-            opacity: 0.8;
+            color: #00b4d8; /* hover时变为高亮蓝，增强交互反馈 */
             text-decoration: underline;
         }
 
@@ -76,22 +82,25 @@
         }
 
         .page-title h1 {
-            color: #4a90e2;
+            color: #00b4d8; /* 标题高亮色：亮蓝色 */
             font-size: 2rem;
             margin-bottom: 0.5rem;
         }
 
         .page-title p {
-            color: #666;
+            color: #94a3b8; /* 描述文字：浅灰蓝，降低视觉权重 */
             font-size: 0.95rem;
         }
 
-        /* 专区特有样式：物品列表 */
+        /* 专区特有样式：物品列表（黑夜风格改造） */
         .list-section {
-            background-color: white;
+            /* 卡片容器：半透明深灰，毛玻璃效果 */
+            background-color: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(10px);
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* 深色阴影，贴合黑夜风格 */
             padding: 1.5rem;
+            border: 1px solid #2a3447; /* 深色边框，增强质感 */
         }
 
         .section-header {
@@ -99,12 +108,12 @@
             justify-content: space-between;
             align-items: center;
             padding-bottom: 1rem;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid #2a3447; /* 深色分割线，替代原有浅灰 */
             margin-bottom: 1.5rem;
         }
 
         .section-header h2 {
-            color: #333;
+            color: #e2e8f0; /* 分区标题：浅灰，保证可读性 */
             font-size: 1.3rem;
             display: flex;
             align-items: center;
@@ -113,7 +122,7 @@
 
         .btn {
             padding: 0.5rem 1rem;
-            background-color: #4a90e2;
+            background-color: #00b4d8; /* 按钮主色：亮蓝色，适配黑夜风格 */
             color: white;
             border: none;
             border-radius: 6px;
@@ -122,10 +131,13 @@
             transition: background-color 0.3s ease;
             text-decoration: none;
             display: inline-block;
+            border: 1px solid #00b4d8;
         }
 
         .btn:hover {
-            background-color: #3a80d2;
+            background-color: #0096c7; /* hover时颜色加深，增强层次感 */
+            border-color: #0096c7;
+            box-shadow: 0 0 10px rgba(0, 180, 216, 0.2);
         }
 
         .items-grid {
@@ -135,16 +147,18 @@
         }
 
         .item-card {
-            background-color: #fafbfc;
-            border: 1px solid #eee;
+            /* 物品卡片：深灰背景，深色边框 */
+            background-color: rgba(30, 41, 59, 0.8);
+            border: 1px solid #2a3447;
             border-radius: 8px;
             padding: 1rem;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
         }
 
         .item-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3); /* 深色阴影，增强悬浮感 */
+            border-color: #00b4d8; /* hover时边框变为高亮蓝，突出选中状态 */
         }
 
         .item-img {
@@ -153,16 +167,18 @@
             object-fit: cover;
             border-radius: 6px;
             margin-bottom: 1rem;
-            background-color: #eef2f7;
+            /* 黑夜风格占位图背景：深灰蓝，替代原有浅灰 */
+            background-color: #1e293b;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #999;
+            color: #94a3b8; /* 占位图文字：浅灰蓝 */
+            border: 1px dashed #2a3447;
         }
 
         .item-card h3 {
             font-size: 1.1rem;
-            color: #333;
+            color: #e2e8f0; /* 卡片标题：浅灰，保证可读性 */
             margin-bottom: 0.5rem;
             white-space: nowrap;
             overflow: hidden;
@@ -171,21 +187,23 @@
 
         .item-info {
             font-size: 0.85rem;
-            color: #666;
+            color: #94a3b8; /* 卡片信息：浅灰蓝，降低视觉权重 */
             margin-bottom: 0.3rem;
         }
 
         .item-info span {
-            color: #333;
+            color: #cbd5e1; /* 信息标签：更浅的灰色，突出关键信息 */
             font-weight: 500;
         }
 
         footer {
-            background-color: #333;
-            color: white;
+            /* 黑夜风格页脚：半透明深灰，与导航栏呼应 */
+            background-color: rgba(15, 23, 42, 0.9);
+            color: #e2e8f0;
             text-align: center;
             padding: 2rem 0;
             margin-top: 5rem;
+            border-top: 1px solid #2a3447; /* 深色边框，增强层次感 */
         }
 
         .footer-container {
@@ -197,7 +215,7 @@
         .footer-contact {
             margin-top: 1rem;
             font-size: 0.85rem;
-            color: #ccc;
+            color: #94a3b8; /* 联系信息：浅灰蓝，适配黑夜风格 */
         }
 
         @media (max-width: 768px) {
@@ -224,7 +242,7 @@
     </style>
 </head>
 <body>
-    <!-- 统一导航栏 -->
+    <!-- 统一导航栏（黑夜风格视觉优化） -->
     <header>
         <div class="header-container">
             <a href="index.html" class="logo">
@@ -244,7 +262,7 @@
             <p>专注于教材、笔记本、钢笔等书籍文具的失物与招领</p>
         </div>
 
-        <!-- 遗失书籍文具列表 -->
+        <!-- 遗失书籍文具列表（黑夜风格卡片优化） -->
         <section class="list-section">
             <div class="section-header">
                 <h2>🔍 遗失书籍文具</h2>
@@ -270,7 +288,7 @@
             </div>
         </section>
 
-        <!-- 招领书籍文具列表 -->
+        <!-- 招领书籍文具列表（黑夜风格卡片优化） -->
         <section class="list-section">
             <div class="section-header">
                 <h2>✅ 招领书籍文具</h2>
@@ -297,14 +315,14 @@
         </section>
     </main>
 
-    <!-- 统一页脚 -->
+    <!-- 统一页脚（黑夜风格视觉优化） -->
     <footer>
         <div class="footer-container">
             <h3>宁夏大学校学生会 - 生活服务部</h3>
             <p class="footer-contact">
                 咨询电话：138-XXXX-XXXX | 办公地址：学生活动中心203室 | 工作时间：周一至周五 9:00-17:00
             </p>
-            <p style="margin-top: 1rem; font-size: 0.8rem;">© 2026 宁夏大学 版权所有</p>
+            <p style="margin-top: 1rem; font-size: 0.8rem; color: #64748b;">© 2026 宁夏大学 版权所有</p>
         </div>
     </footer>
 </body>
